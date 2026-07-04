@@ -130,3 +130,26 @@ The application automatically seeds three sample agents on first launch:
 - This project is intended as a local educational MVP and is **not** a production-grade sandbox for untrusted code. Use Docker or another isolated execution environment before accepting public submissions.
 
 
+## Branch Naming Convention
+
+Use the following naming convention when creating branches:
+
+| Type          | Branch Name                    |
+| :------------ | :----------------------------- |
+| Feature       | `feature/{short-description}`  |
+| Bug Fix       | `fix/{short-description}`      |
+| Refactor      | `refactor/{short-description}` |
+| Documentation | `docs/{short-description}`     |
+| Test          | `test/{short-description}`     |
+| Chore         | `chore/{short-description}`    |
+
+### Examples
+
+```text
+feature/add-replay-speed
+fix/agent-timeout
+refactor/game-engine
+docs/update-readme
+test/match-engine
+chore/update-dependencies
+```
