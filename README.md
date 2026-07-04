@@ -1,66 +1,49 @@
-# ALGO_WAR
+# Search Battle / ALGO_WAR
 
-ALGO_WAR is a local web prototype where Python search agents compete on an `N x N` grid.
-Each agent starts from one random cell, moves one step per turn, and claims empty cells it actually visits.
+Search Battle is a local MVP for uploading Python search agents, running 1 vs 1 territory battles, rating agents with ELO, and replaying matches in the browser.
 
 ## Features
 
-- 2 to 4 Python agents per match
-- Same agent can be selected more than once
-- Default `15 x 15` square board
-- Random start positions on every match
-- Visited-node territory capture
-- Replay animation in the browser
-- SQLite storage for agents, matches, ratings, and replay frames
-- FastAPI backend with a static browser UI
+- Python-only agent submissions
+- 1 vs 1 local match engine
+- Paper.io-style territory, trail capture, and elimination rules
+- SQLite persistence for agents, matches, ratings, and replay frames
+- FastAPI backend
+- Browser UI for ranking, upload, match launch, and replay
 
-## How To Run
+## Requirements
+- Python 3.12 or 3.13
+- pip
 
-Open PowerShell in the project folder:
+> **Note**
+>
+> Python **3.12 or 3.13** is required.
+> Python **3.14** is not currently supported because some dependencies are not yet compatible.
 
-```powershell
-cd "$HOME\Desktop\ALGO_WAR"
-```
 
-Create and activate a virtual environment:
+
+## Quick Start
+### Windows (PowerShell)
 
 ```powershell
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1
-```
-
-Install dependencies:
-
-```powershell
 pip install -r requirements.txt
-```
-
-Start the web server:
-
-```powershell
 python app.py
 ```
 
-Open this URL in a browser:
+### macOS / Linux
+
+```bash
+python3.12 -m venv .venv source .venv/bin/activate pip install -r requirements.txt python app.py
+```
+
+Then open:
 
 ```text
 http://127.0.0.1:8000
 ```
-
-To stop the server, press `Ctrl+C` in the PowerShell window running `python app.py`.
-
-## Current Game Rules
-
-- The board is a square `N x N` grid.
-- Each player starts with exactly one owned cell.
-- Each turn, an agent returns one move: `UP`, `DOWN`, `LEFT`, or `RIGHT`.
-- Moving into an empty cell immediately claims that cell.
-- Already-owned cells cannot be stolen.
-- Opponent-owned cells cannot be entered.
-- If an agent is stuck at its current head position, the engine restarts it from one of its own frontier cells and immediately moves it into an adjacent empty cell.
-- The match ends when no empty cells can be reached.
-- Winner is decided by the number of claimed cells.
-
+Stop the server with **Ctrl + C**.
 ## Agent Interface
 
 Upload Python code that exposes either:
@@ -78,29 +61,27 @@ class Agent:
         return "RIGHT"
 ```
 
+Allowed moves are `UP`, `DOWN`, `LEFT`, and `RIGHT`.
+
 The `state` object contains:
 
 - `grid`
 - `you`
 - `opponent`
-- `opponents`
 - `turn`
 - `max_turns`
 - `remaining_turns`
 - `scores`
 - `valid_moves`
 
-## Built-In Sample Agents
+## Built-in Sample Agents
 
-The app seeds these sample agents on first launch:
+The app seeds three agents on first launch:
 
 - Greedy Expander
 - Center Hunter
 - Safe Looper
 
-## Development Notes
+## Notes
 
-Runtime data is written to `data/algo_war.sqlite3`.
-The `data/` folder and Python cache files are ignored by Git.
-
-This is a local educational MVP, not a production sandbox for untrusted code.
+This is a local educational MVP. It uses a separate Python process with a timeout for each move, but it is not a production-grade sandbox. Use Docker or a dedicated sandbox runner before accepting untrusted public submissions.
