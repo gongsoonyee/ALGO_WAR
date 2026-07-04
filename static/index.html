@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ALGO_WAR Search Battle</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div>
+        <strong>ALGO_WAR</strong>
+        <span>2-4 Agent N x N Territory Battle</span>
+      </div>
+      <button id="refreshBtn" title="Refresh">R</button>
+    </header>
+
+    <main class="layout">
+      <section class="panel arena-panel">
+        <div class="section-head">
+          <div>
+            <h1>N x N Territory Battle</h1>
+            <p id="matchMeta">Select 2 to 4 algorithms, choose N, then run a match.</p>
+          </div>
+          <div class="controls">
+            <button id="playBtn" title="Play from start">Play</button>
+            <button id="pauseBtn" title="Pause">Pause</button>
+            <input id="turnSlider" type="range" min="0" max="0" value="0" />
+          </div>
+        </div>
+        <canvas id="arena" width="960" height="960"></canvas>
+        <div id="scorebar" class="scorebar"></div>
+      </section>
+
+      <section class="side">
+        <div class="panel">
+          <div class="section-head compact">
+            <h2>Match Setup</h2>
+            <button id="runMatchBtn">Run Match</button>
+          </div>
+          <div class="match-form">
+            <label>Board N<input id="boardSize" type="number" min="12" max="48" value="15" /></label>
+            <label>A Agent<select class="agentSelect" id="agentA"></select></label>
+            <label>B Agent<select class="agentSelect" id="agentB"></select></label>
+            <label>C Agent<select class="agentSelect optional" id="agentC"></select></label>
+            <label>D Agent<select class="agentSelect optional" id="agentD"></select></label>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="section-head compact">
+            <h2>Leaderboard</h2>
+          </div>
+          <div id="leaderboard" class="list"></div>
+        </div>
+
+        <div class="panel">
+          <div class="section-head compact">
+            <h2>Recent Matches</h2>
+          </div>
+          <div id="matches" class="list"></div>
+        </div>
+      </section>
+
+      <section class="panel upload-panel">
+        <div class="section-head">
+          <div>
+            <h2>Upload Agent</h2>
+            <p>Implement Python next_move(state) or Agent.next_move(state).</p>
+          </div>
+          <button id="uploadBtn">Upload</button>
+        </div>
+        <div class="upload-grid">
+          <label>Name<input id="agentName" value="My Search Agent" /></label>
+          <label>Author<input id="authorName" value="local" /></label>
+        </div>
+        <textarea id="codeInput" spellcheck="false">def next_move(state):
+    x, y = state["you"]["x"], state["you"]["y"]
+    label = state["you"]["label"]
+    grid = state["grid"]
+    moves = [("RIGHT", 1, 0), ("DOWN", 0, 1), ("LEFT", -1, 0), ("UP", 0, -1)]
+
+    def bfs(target, owned_only):
+        queue = [(x, y, None)]
+        seen = {(x, y)}
+        head = 0
+        while head < len(queue):
+            cx, cy, first = queue[head]
+            head += 1
+            for move, dx, dy in moves:
+                nx, ny = cx + dx, cy + dy
+                if ny < 0 or nx < 0 or ny >= len(grid) or nx >= len(grid[0]):
+                    continue
+                cell = grid[ny][nx]
+                if (nx, ny) in seen or cell == label.lower() or cell not in (".", label):
+                    continue
+                step = move if first is None else first
+                if target(cell):
+                    return step
+                if not owned_only or cell == label:
+                    seen.add((nx, ny))
+                    queue.append((nx, ny, step))
+        return None
+
+    return bfs(lambda cell: cell == ".", True) or "UP"</textarea>
+      </section>
+    </main>
+
+    <script src="/static/script.js"></script>
+  </body>
+</html>
