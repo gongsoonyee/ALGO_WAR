@@ -15,7 +15,7 @@ assignees: ''
     validations:
       required: true
 
-  - type: textarea
+- type: textarea
     attributes:
       label: 🔁 재현 방법
       description: 버그를 재현하는 단계를 작성해 주세요.
@@ -26,7 +26,7 @@ assignees: ''
     validations:
       required: true
 
-  - type: textarea
+- type: textarea
     attributes:
       label: ✅ 기대한 동작
       description: 원래 기대했던 동작을 작성해 주세요.
@@ -34,7 +34,7 @@ assignees: ''
     validations:
       required: true
 
-  - type: textarea
+- type: textarea
     attributes:
       label: ✅ 작업할 내용
       description: 수정할 내용을 체크박스 형태로 작성해 주세요.
@@ -45,7 +45,7 @@ assignees: ''
     validations:
       required: true
 
-  - type: textarea
+- type: textarea
     attributes:
       label: 🙋🏻 참고 자료
       description: 참고 자료가 있다면 작성해 주세요.

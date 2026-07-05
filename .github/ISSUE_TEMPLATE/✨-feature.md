@@ -15,7 +15,7 @@ assignees: ''
     validations:
       required: true
 
-  - type: textarea
+- type: textarea
     attributes:
       label: ✅ 작업할 내용
       description: 할 일을 체크박스 형태로 작성해 주세요.
@@ -26,7 +26,7 @@ assignees: ''
     validations:
       required: true
 
-  - type: textarea
+- type: textarea
     attributes:
       label: 🙋🏻 참고 자료
       description: 참고 자료가 있다면 작성해 주세요.
